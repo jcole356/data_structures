@@ -4,9 +4,9 @@ function BSTree() {
 
 BSTree.prototype.set = function (key, value) {
   if (this.root) {
-    this.root = this.root.set2(key,value);
+    this.root = this.root.set2(key, value);
   } else {
-    this.root = new BSTNode(key,value);
+    this.root = new BSTNode(key, value);
   }
 };
 
@@ -63,27 +63,53 @@ BSTNode.prototype.set2 = function (key, value) {
   var newLeft = null;
   var newRight = null;
   if (this.key === key) {
-    newNode = new BSTNode(key, value, this.left, this.right);
+    newNode = new BSTNode(
+      key, 
+      value, 
+      this.left, 
+      this.right
+    );
   } else if (this.key > key) {
     if (this.left) {
       newLeft = this.left.set2(key, value);
-      newNode = new BSTNode(this.key, this.value, newLeft, this.right);
+      newNode = new BSTNode(
+        this.key, 
+        this.value, 
+        newLeft, 
+        this.right
+      );
     } else {
       newLeft = new BSTNode(key, value);
-      newNode = new BSTNode(this.key, this.value, newLeft, this.right);
+      newNode = new BSTNode(
+        this.key, 
+        this.value, 
+        newLeft, 
+        this.right
+      );
     }
   } else if (this.key < key) {
     if (this.right) {
       newRight = this.right.set2(key, value);
-      newNode = new BSTNode(this.key, this.value, this.left, newRight);
+      newNode = new BSTNode(
+        this.key, 
+        this.value, 
+        this.left, 
+        newRight
+      );
     } else {
       newRight = new BSTNode(key, value);
-      newNode = new BSTNode(this.key, this.value, this.left, newRight);
+      newNode = new BSTNode(
+        this.key, 
+        this.value, 
+        this.left, 
+        newRight
+      );
     }
   }
   if (Math.abs(newNode.balance) === 2) {
     newNode = newNode.correctBalance();
   }
+
   return newNode;
 };
 
@@ -95,7 +121,12 @@ BSTNode.prototype.correctBalance = function () {
       // This case requires a double rotation
     } else if (this.left.balance === 1) {
       newLeft = this.left.leftRotate();
-      newRoot = new BSTNode(this.key, this.value, newLeft, this.right);
+      newRoot = new BSTNode(
+        this.key, 
+        this.value, 
+        newLeft, 
+        this.right
+      );
       return newRoot.rightRotate();
     }
   } else if (this.balance === 2) {
@@ -103,9 +134,14 @@ BSTNode.prototype.correctBalance = function () {
       if (this.right.balance === 1 || this.right.balance === 0) {
         return this.leftRotate();
         // This also requires a double rotation
-      } else if (this.right.balance ===  -1) {
+      } else if (this.right.balance === -1) {
         newRight = this.right.rightRotate();
-        newRoot = new BSTNode(this.key, this.value, this.left, newRight);
+        newRoot = new BSTNode(
+          this.key, 
+          this.value, 
+          this.left, 
+          newRight
+        );
         return newRoot.leftRotate();
       }
     }
@@ -114,31 +150,41 @@ BSTNode.prototype.correctBalance = function () {
 
 BSTNode.prototype.leftRotate = function () {
   if (!this.right) {
-    throw "There is no right child!";
+    throw 'There is no right child!';
   }
-  var newLeft = new BSTNode(this.key,
-                            this.value,
-                            this.left,
-                            this.right.left);
-  var newRoot = new BSTNode(this.right.key,
-                            this.right.value,
-                            newLeft,
-                            this.right.right);
+  var newLeft = new BSTNode(
+    this.key,
+    this.value,
+    this.left,
+    this.right.left
+  );
+  var newRoot = new BSTNode(
+    this.right.key,
+    this.right.value,
+    newLeft,
+    this.right.right
+  );
+
   return newRoot;
 };
 
 BSTNode.prototype.rightRotate = function () {
   if (!this.left) {
-    throw "There is no left child!";
+    throw 'There is no left child!';
   }
-  var newRight = new BSTNode(this.key,
-                             this.value,
-                             this.left.right,
-                             this.right);
-  var newRoot = new BSTNode(this.left.key,
-                            this.left.value,
-                            this.left.left,
-                            newRight);
+  var newRight = new BSTNode(
+    this.key,
+    this.value,
+    this.left.right,
+    this.right
+  );
+  var newRoot = new BSTNode(
+    this.left.key,
+    this.left.value,
+    this.left.left,
+    newRight
+  );
+
   return newRoot;
 };
 
