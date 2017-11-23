@@ -4,7 +4,7 @@ function BinaryArrayHeap() {
 
 BinaryArrayHeap.prototype.insert = function (val) {
   this.store.push(val);
-  this._heapifyUp(this.store.length - 1);
+  this.heapifyUp(this.store.length - 1);
   return val;
 };
 
@@ -16,11 +16,11 @@ BinaryArrayHeap.prototype.extract = function () {
   }
   var root = this.store[0];
   this.store[0] = this.store.pop();
-  this._heapifyDown(0);
+  this.heapifyDown(0);
   return root;
 };
 
-BinaryArrayHeap.prototype._heapifyDown = function (startIdx) {
+BinaryArrayHeap.prototype.heapifyDown = function (startIdx) {
   var childIndices = _childIndices(startIdx);
   var smallestChildIdx = null;
   if (this.store[childIndices[1]] === undefined) {
@@ -39,10 +39,10 @@ BinaryArrayHeap.prototype._heapifyDown = function (startIdx) {
     return null;
   }
 
-  this._heapifyDown(smallestChildIdx);
+  this.heapifyDown(smallestChildIdx);
 };
 
-BinaryArrayHeap.prototype._heapifyUp = function (startIdx) {
+BinaryArrayHeap.prototype.heapifyUp = function (startIdx) {
   if (startIdx === 0) {
     return null;
   }
@@ -55,7 +55,7 @@ BinaryArrayHeap.prototype._heapifyUp = function (startIdx) {
     return null;
   }
 
-  this._heapifyUp(parentIdx);
+  this.heapifyUp(parentIdx);
 };
 
 BinaryArrayHeap.prototype.randomHeap = function (size) {
