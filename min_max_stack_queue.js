@@ -67,7 +67,7 @@ MinMaxStackQueue.prototype.enqueue = function (value) {
   return null;
 };
 
-// Ammortized O(1) time.  W.C. O(n) time
+// Ammortized O(1) time.  Worst Case O(n) time
 MinMaxStackQueue.prototype.dequeue = function () {
   if (this.out.length() !== 0) {
     return this.out.pop();
